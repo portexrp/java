@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Prova EDM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            
+            <p:layoutUnit position="north" size="130" header="Topo do layout">
+                <h1>Prova - Reinaldo</h1>
+                
+            </p:layoutUnit>
+            
+            <p:layoutUnit position="west" header="Menu lateral" resizable="true" collapsible="true" size="230">
+                
+            </p:layoutUnit>
+            
+            <p:layoutUnit position="center">
+                
+                <h:form id="frm">
+                    <p:panelGrid columns="2">
+                        
+                        <p:outputLabel value="Nome"/>
+                        <p:inputText size="30" value="#{clienteMB.cliente.nome}" required="true" label="Nome"/>
+                        
+                        <p:outputLabel value="CPF"/>
+                        <p:inputMask mask="999.999.999.-99" size="13" value="#{clienteMB.cliente.CPF}" required="true" label="CPF"></p:inputMask>
+                        
+                        <p:outputLabel/>
+                        <p:commandButton value="Cadastrar" action="#{clienteMB.adicionar}" update="frm tabela" style="margin-top: 10px"/>
+                        
+                    </p:panelGrid>
+                    
+                    <p:dataTable value="#{clienteMB.cliente}" var="c" id="tabela"paginator="true" rows="5">
+                        <p:column headerText="Cliente">
+                            <p:outputLabel value="#{c.nome}"/>
+                        </p:column>
+                        <p:column headerText="CPF">
+                            <p:outputLabel value="#{c.cpf}"/>
+                        </p:column>
+                        
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" update="@form" process="@this">
+                                <f:setPropertyActionListener value="#{c}" target="#{clienteMB.cliente}"/>
+                            </p:commandButton>
+                            <p:commandButton action="#{clienteMB.excluir}" icon="ui-icon-trash" update="tabela" process="@this">
+                                <f:setPropertyActionListener value="#{c}" target="#{clienteMB.cliente}"/>
+                            </p:commandButton>
+                        </p:column>
+                    
+                    
+                    </p:dataTable>
+                    
+                    
+                </h:form>
+                
+            </p:layoutUnit>
+            
+            
+        </p:layout>
+    </h:body>
+</html>
